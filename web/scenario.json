@@ -1,0 +1,606 @@
+{
+ "service": "grocery-perishables-optimizer",
+ "run": "demo-1",
+ "tokens": {
+  "manager": "fresh-store_manager-demo",
+  "planner": "fresh-planner-demo",
+  "viewer": "fresh-viewer-demo"
+ },
+ "steps": [
+  {
+   "title": "Twenty-six weeks of a grocery chain",
+   "say": "An invented chain: twelve stores, twenty perishable items from strawberries to sushi, twenty-six weeks of sales, deliveries and waste under the chain's usual rule (order up to 1.6 times the same weekday's sales of the last four weeks). Sales stop when the shelf is empty, so on a stockout day they understate demand. The demand model reads those days as 'at least this much'; the shelf-life model learns from lots that spoiled, sold out or hit their date, with the heat each lot's logger recorded. Both are scored on the last four weeks against the simulation truth.",
+   "calls": [
+    {
+     "key": "load",
+     "as": "manager",
+     "method": "POST",
+     "path": "/v1/chain:load",
+     "body": {
+      "seed": 12
+     }
+    },
+    {
+     "key": "chain",
+     "as": "viewer",
+     "method": "GET",
+     "path": "/v1/chain"
+    }
+   ]
+  },
+  {
+   "title": "Friday: three pallets of strawberries",
+   "say": "A supplier push lands 260 packs of strawberries at Elm Street, about seven days of sales, and the lot's logger shows a five-hour refrigeration fault in transit. Five other lots arrive; four are refused one by one. Then the shelf camera counts the strawberries: every facing is confident, the count is 22 short of the system, and the gap is booked as shrink against the oldest lots.",
+   "calls": [
+    {
+     "key": "lots",
+     "as": "planner",
+     "method": "POST",
+     "path": "/v1/inventory/lots",
+     "body": {
+      "lots": [
+       {
+        "store": "Elm Street",
+        "sku": "Strawberries 1 lb",
+        "qty": 260,
+        "received_on": "2026-09-25",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T20:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T21:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T21:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T22:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T22:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T23:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-24T23:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-25T00:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-25T00:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-25T01:00:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-25T01:30:00+00:00",
+          "celsius": 7.5
+         },
+         {
+          "ts": "2026-09-25T02:00:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T02:30:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T03:00:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T03:30:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T04:00:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T04:30:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T05:00:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T05:30:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T06:00:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T06:30:00+00:00",
+          "celsius": 30.0
+         },
+         {
+          "ts": "2026-09-25T07:00:00+00:00",
+          "celsius": 8.0
+         },
+         {
+          "ts": "2026-09-25T07:30:00+00:00",
+          "celsius": 8.0
+         },
+         {
+          "ts": "2026-09-25T08:00:00+00:00",
+          "celsius": 3.5
+         }
+        ]
+       },
+       {
+        "store": "Harbor Point",
+        "sku": "Romaine hearts 3 ct",
+        "qty": 40,
+        "received_on": "2026-09-25",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T20:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-25T00:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T00:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:30:00+00:00",
+          "celsius": 3.0
+         }
+        ]
+       },
+       {
+        "store": "Elm Street",
+        "sku": "Dragon fruit",
+        "qty": 20,
+        "received_on": "2026-09-25",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T20:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-25T00:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T00:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:30:00+00:00",
+          "celsius": 3.0
+         }
+        ]
+       },
+       {
+        "store": "Elm Street",
+        "sku": "Baby spinach 5 oz",
+        "qty": 0,
+        "received_on": "2026-09-25",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T20:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-25T00:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T00:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:30:00+00:00",
+          "celsius": 3.0
+         }
+        ]
+       },
+       {
+        "store": "Maple Grove",
+        "sku": "Whole milk gallon",
+        "qty": 60,
+        "received_on": "2026-09-25",
+        "label_expiry": "2026-09-20",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T20:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T21:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T22:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:00:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-24T23:30:00+00:00",
+          "celsius": 4.5
+         },
+         {
+          "ts": "2026-09-25T00:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T00:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T01:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T02:30:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:00:00+00:00",
+          "celsius": 3.0
+         },
+         {
+          "ts": "2026-09-25T03:30:00+00:00",
+          "celsius": 3.0
+         }
+        ]
+       },
+       {
+        "store": "Riverside",
+        "sku": "Ground beef 1 lb",
+        "qty": 30,
+        "received_on": "2026-09-25",
+        "temperatures": [
+         {
+          "ts": "2026-09-24T20:00:00+00:00",
+          "celsius": 4.5
+         }
+        ]
+       }
+      ]
+     }
+    },
+    {
+     "key": "vision",
+     "as": "planner",
+     "method": "POST",
+     "path": "/v1/vision/count",
+     "body": {
+      "store": "Elm Street",
+      "sku": "Strawberries 1 lb",
+      "facings": [
+       {
+        "facing": "F1",
+        "count": 44,
+        "confidence": 0.94
+       },
+       {
+        "facing": "F2",
+        "count": 42,
+        "confidence": 0.91
+       },
+       {
+        "facing": "F3",
+        "count": 41,
+        "confidence": 0.9
+       },
+       {
+        "facing": "F4",
+        "count": 40,
+        "confidence": 0.88
+       },
+       {
+        "facing": "F5",
+        "count": 40,
+        "confidence": 0.86
+       },
+       {
+        "facing": "F6",
+        "count": 37,
+        "confidence": 0.83
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "title": "What will not sell in time",
+   "say": "For every item on Elm Street's shelves: the units the shelf-life model expects to spoil or pass their date before they sell at full price, the same with the date code alone, and the simulation truth.",
+   "calls": [
+    {
+     "key": "risk",
+     "as": "viewer",
+     "method": "GET",
+     "path": "/v1/expiration/risk?store=Elm%20Street"
+    }
+   ]
+  },
+  {
+   "title": "When to mark the strawberries down",
+   "say": "A dynamic program over the units on hand chooses a discount for each day until the date: the forecast, the price response fitted from past markdowns, and the chance tonight is the night the warm lot spoils. Then every option runs 1,500 times against real demand and the lot's real life: no markdown, the clerk's 30% on the last day, a flat 30% from day two, the optimiser, and the optimiser given the true parameters. Discounts of 40% or more wait for the store manager, who is not the planner.",
+   "calls": [
+    {
+     "key": "md",
+     "as": "planner",
+     "method": "POST",
+     "path": "/v1/markdown/solve",
+     "body": {
+      "store": "Elm Street",
+      "sku": "Strawberries 1 lb"
+     }
+    },
+    {
+     "key": "self",
+     "expect_error": true,
+     "as": "planner",
+     "method": "POST",
+     "path": "/v1/markdown/{{md.actions.0.action_id}}/approve",
+     "body": {
+      "note": "approving my own"
+     }
+    },
+    {
+     "key": "approve",
+     "as": "manager",
+     "method": "POST",
+     "path": "/v1/markdown/{{md.actions.0.action_id}}/approve",
+     "body": {
+      "note": "Warm lot, move it this weekend"
+     }
+    }
+   ]
+  },
+  {
+   "title": "A heatwave from Sunday",
+   "say": "Friday's weather update brings 36-38 C from Sunday to Wednesday. Heat lifts demand for berries, salads and cut fruit and shortens shelf life, more for lots that ship on hot days. The forecast changes; the replenishment plan for the next six days orders up to a service-level quantile of each day's demand, counting only the stock the shelf-life model expects to survive, with each item's service level chosen by simulating the model's own world. On the truth it is set against the chain's rule and against the same plan without the weather update, with the margin-against-waste tradeoff across service levels.",
+   "calls": [
+    {
+     "key": "heat",
+     "as": "manager",
+     "method": "POST",
+     "path": "/v1/weather/forecast",
+     "body": {
+      "kind": "heatwave",
+      "days": [
+       24.0,
+       25.0,
+       36.5,
+       38.0,
+       38.5,
+       37.5,
+       36.0,
+       33.0,
+       29.0,
+       27.0,
+       26.0,
+       25.0,
+       24.0,
+       24.0
+      ],
+      "issued": "2026-09-25 06:00"
+     }
+    },
+    {
+     "key": "fc",
+     "as": "viewer",
+     "method": "GET",
+     "path": "/v1/forecast?store=Elm%20Street&sku=Strawberries%201%20lb&days=7"
+    },
+    {
+     "key": "plan",
+     "as": "planner",
+     "method": "POST",
+     "path": "/v1/replenishment/solve",
+     "body": {
+      "store": "Elm Street",
+      "days": 7
+     }
+    }
+   ]
+  },
+  {
+   "title": "The audit trail",
+   "say": "Every load, receipt, count, markdown, approval, weather update and plan, in a hash chain.",
+   "calls": [
+    {
+     "key": "audit",
+     "as": "manager",
+     "method": "GET",
+     "path": "/v1/audit?limit=12"
+    }
+   ]
+  }
+ ]
+}
